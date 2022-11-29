@@ -1,0 +1,6 @@
+Flight number: 1, destination: London
+Flight number: 2, destination: Paris
+Flight number: 3, destination: Istanbul
+Flight number: 4, destination: Moscow
+Flight number: 5, destination: Tokyo
+Flight number: 6, destination: New York

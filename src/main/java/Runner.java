@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Runner {
@@ -25,8 +26,21 @@ public class Runner {
         System.out.println("Type 3 to display all flights");
         System.out.println("Type 4 to cancel a flight");
         System.out.println("Type 5 to book a passenger onto a flight");
-        System.out.println("Type 6 to exit menu");
-        int userInput = scanner.nextInt();
+        System.out.println("Type 6 to search flights");
+        System.out.println("Type 7 to export all flights into a file");
+        System.out.println("Type 8 to exit menu");
+        int userInput=0;
+        boolean properInput = true;
+        while(properInput){
+        try {
+            userInput = scanner.nextInt();
+            properInput = false;
+            } catch (InputMismatchException e){
+                      System.out.println("That's not a number, try again!");
+                      scanner.nextLine();
+                      continue;
+            }
+        }
         scanner.nextLine();
         return userInput;
     }
@@ -38,16 +52,16 @@ public class Runner {
             String customerName = scanner.nextLine();
             System.out.println("Type in customer number: ");
             int customerNumber = scanner.nextInt();
-            System.out.println("Type in customer id: ");
-            int customerId = scanner.nextInt();
+//             System.out.println("Type in customer id: ");
+//             int customerId = scanner.nextInt();
             scanner.nextLine();
-            airline.addCustomer(new Passenger(customerName, customerNumber, customerId));
+            airline.addCustomer(new Passenger(customerName, customerNumber, airline.getCustomers().size()+1));
         } else if (userInput == 2){
             System.out.println("Type in flight destination: ");
             String flightDestination = scanner.nextLine();
-            System.out.println("Type in flight id: ");
-            int flightId = scanner.nextInt();
-            airline.addFlight(new Flight(flightDestination, flightId));
+//            System.out.println("Type in flight id: ");
+//            int flightId = scanner.nextInt();
+            airline.addFlight(new Flight(flightDestination, airline.getFlights().size()+1));
         } else if (userInput == 3){
             airline.displayFlights();
         } else if (userInput == 4){
@@ -86,14 +100,21 @@ public class Runner {
                             flight.bookPassenger(passenger);
                         }
                     }
-                    Passenger passengerToAdd = new Passenger(customerName, customerNumber, customerId);
+                    Passenger passengerToAdd = new Passenger(customerName, customerNumber, airline.getCustomers().size()+1);
                     flight.bookPassenger(passengerToAdd);
                     airline.addCustomer(passengerToAdd);
                 }
             }
-        } else if (userInput == 6){
+        } else if (userInput == 8){
             System.out.println("Goodbye.");
             Runner.isRunning = false;
+        } else if(userInput == 6){
+            System.out.println("Write destination: ");
+            String destinationName = scanner.nextLine();
+            airline.searchFlights(destinationName);
+        } else if (userInput == 7) {
+            airline.exportFlights();
+            System.out.println("File exported successfully.");
         }
     }
 
