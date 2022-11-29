@@ -9,16 +9,10 @@ public class Runner {
         while (isRunning){
             action(ba, displayMenu(ba, scanner), scanner,isRunning);
             }
-        /// Running some tests
-        for(Passenger passenger:ba.getFlights().get(0).getPassengers()){
-            System.out.println(passenger);
-        }
+
     }
 
 
-    // Display Menu for the user
-    // User Inputs the action
-    // Based on input initialise the method
     public static int displayMenu(Airline airline, Scanner scanner){
         System.out.println(String.format("Welcome to %s",airline.getName()));
         System.out.println("Type 1 to add a customer");
@@ -52,15 +46,11 @@ public class Runner {
             String customerName = scanner.nextLine();
             System.out.println("Type in customer number: ");
             int customerNumber = scanner.nextInt();
-//             System.out.println("Type in customer id: ");
-//             int customerId = scanner.nextInt();
             scanner.nextLine();
             airline.addCustomer(new Passenger(customerName, customerNumber, airline.getCustomers().size()+1));
         } else if (userInput == 2){
             System.out.println("Type in flight destination: ");
             String flightDestination = scanner.nextLine();
-//            System.out.println("Type in flight id: ");
-//            int flightId = scanner.nextInt();
             airline.addFlight(new Flight(flightDestination, airline.getFlights().size()+1));
         } else if (userInput == 3){
             airline.displayFlights();
@@ -70,9 +60,6 @@ public class Runner {
             System.out.println("Type in flight id: ");
             int flightId = scanner.nextInt();
             scanner.nextLine();
-            // go through the list of flights
-            // check if the flight destination and flightId matches input
-            // cancelflight
             Flight flightToRemove = null;
             for (Flight flight : airline.getFlights()){
                 if (flight.getDestination().equalsIgnoreCase(flightDestination) && flight.getId() == flightId){
